@@ -2,7 +2,7 @@ import { Delete, Edit } from "@mui/icons-material";
 import { Card } from "@mui/material";
 import { deleteUser } from "../../actions/useractions";
 
-const UserCard = ({ user, showDetails=true, isTeamCard=false, curTeam, setCurTeam, teams, setUpdateUser, setModalVisible, reload }) => {
+const UserCard = ({ user, showDetails=true, isTeamCard=false, curTeam, setCurTeam, teams, setUpdateUser, setModalVisible, reload, isTeamFormed=false, teamId=-1, setTeams=()=>{} }) => {
 
     return (
         <Card className="w-full sm:max-w-[300px]">
@@ -21,7 +21,17 @@ const UserCard = ({ user, showDetails=true, isTeamCard=false, curTeam, setCurTea
                   </div>
                 </div>
                 {isTeamCard &&
-                  <button onClick={() => setCurTeam((prev) => prev.filter((item) => item.id!==user.id))}>
+                  <button onClick={() => {
+                      // console.log(curTeam);
+                      // console.log(curTeam.filter((item) => item.id!==user.id));
+                      if (isTeamFormed) {
+                        const tmp = [...teams[teamId-1].members];
+                        const arr = [...teams.slice(0,teamId-1), {members: tmp.filter((item) => item.id!==user.id)}, ...teams.slice(teamId)];
+                        setTeams([...arr.filter((item) => item.members && item.members.length > 0)]);
+                      } else {
+                        setCurTeam((prev) => prev.filter((item) => item.id!==user.id))
+                      }
+                    }}>
                     <Delete color="error" />
                   </button>
                 }

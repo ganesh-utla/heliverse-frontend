@@ -179,7 +179,7 @@ function App () {
             </div>
             <div className="w-full p-5 sm:px-10 flex justify-center items-center flex-wrap gap-5">
                 {curTeam.map((member, index) => (
-                    <UserCard user={member} key={index} showDetails={showDetails} isTeamCard={true} setModalVisible={setModalVisible} setUpdateUser={setUpdateUser} reload={dataFetcher}  />
+                    <UserCard user={member} key={index} curTeam={curTeam} setCurTeam={setCurTeam} teams={teams} showDetails={showDetails} isTeamCard={true} setModalVisible={setModalVisible} setUpdateUser={setUpdateUser} reload={dataFetcher}  />
                 ))}
             </div>
             
@@ -192,7 +192,7 @@ function App () {
 
         <div className="w-full px:5 sm:px-10">
           { teams.map((team, index) => (
-            <TeamCard team={team} key={index} id={index+1} setTeams={setTeams} />
+            <TeamCard team={team} key={index} id={index+1} setTeams={setTeams} teams={teams} />
           ))}
         </div>
 

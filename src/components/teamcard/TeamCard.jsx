@@ -2,7 +2,7 @@ import { Card } from "@mui/material";
 import UserCard from "../usercard/UserCard";
 import { useState } from "react";
 
-const TeamCard = ({ team, id, setTeams }) => {
+const TeamCard = ({ team, id, setTeams, teams }) => {
 
     const [showDetails, setShowDetails] = useState(false);
 
@@ -29,7 +29,7 @@ const TeamCard = ({ team, id, setTeams }) => {
             </div>
             <div className="w-full p-5 sm:px-10 flex justify-center items-center flex-wrap gap-5">
                 {team.members.map((member, index) => (
-                    <UserCard user={member} key={index} showDetails={showDetails} isTeamCard={true} />
+                    <UserCard user={member} key={index} isTeamFormed={true} teamId={id} teams={teams} setTeams={setTeams} showDetails={showDetails} isTeamCard={true} />
                 ))}
             </div>
             
