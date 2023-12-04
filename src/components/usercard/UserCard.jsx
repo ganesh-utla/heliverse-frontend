@@ -21,7 +21,7 @@ const UserCard = ({ user, showDetails=true, isTeamCard=false, curTeam, setCurTea
                   </div>
                 </div>
                 {isTeamCard &&
-                  <button>
+                  <button onClick={() => setCurTeam((prev) => prev.filter((item) => item.id!==user.id))}>
                     <Delete color="error" />
                   </button>
                 }
