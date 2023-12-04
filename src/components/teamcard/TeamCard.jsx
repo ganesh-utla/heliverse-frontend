@@ -2,7 +2,7 @@ import { Card } from "@mui/material";
 import UserCard from "../usercard/UserCard";
 import { useState } from "react";
 
-const TeamCard = ({ team, id }) => {
+const TeamCard = ({ team, id, setTeams }) => {
 
     const [showDetails, setShowDetails] = useState(false);
 
@@ -20,6 +20,7 @@ const TeamCard = ({ team, id }) => {
                         </button>
                         <button 
                             className="px-4 py-2 bg-red-300 rounded-lg hover:bg-red-400 active:bg-red-400 transition-all"
+                            onClick={() => {setTeams(prev => [...prev.slice(0,id-1), ...prev.slice(id)])}}
                         >
                             Delete
                         </button>

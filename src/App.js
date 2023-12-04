@@ -34,6 +34,7 @@ function App () {
   const [curAvailability, setCurAvailability] = useState("Available");
 
   const [showDetails, setShowDetails] = useState(false);
+  const [updateUser, setUpdateUser] = useState({});
 
   const getPreviousUsers = () => {
     fetchUsers(skipAmount - 20, searchUser, selectedGenders, selectedDomains, selectedAvailability);
@@ -64,6 +65,10 @@ function App () {
         genders={genders} domains={domains} availabilities={availabilities}
         curAvailability={curAvailability} curDomain={curDomain} curEmail={curEmail} curFirstName={curFirstName} curGender={curGender} curLastName={curLastName} modalVisible={modalVisible}
         setCurAvailability={setCurAvailability} setCurDomain={setCurDomain} setCurEmail={setCurEmail} setCurFirstName={setCurFirstName} setCurGender={setCurGender} setCurLastName={setCurLastName} setModalVisible={setModalVisible}
+        isUpdateForm={updateUser.id!==undefined}
+        user={updateUser}
+        setUser={setUpdateUser}
+        reload={dataFetcher}
       />
 
       <div className="flex justify-center items-center p-5 bg-slate-100">
@@ -123,7 +128,7 @@ function App () {
 
         <div className="w-full px-5 sm:px-10 flex justify-center items-center flex-wrap gap-5">
           { users.map((user, index) => (
-            <UserCard user={user} key={index} curTeam={curTeam} setCurTeam={setCurTeam} teams={teams} />
+            <UserCard user={user} key={index} curTeam={curTeam} setCurTeam={setCurTeam} teams={teams} setModalVisible={setModalVisible} setUpdateUser={setUpdateUser} reload={dataFetcher} />
           ))}
         </div>
 
@@ -174,7 +179,7 @@ function App () {
             </div>
             <div className="w-full p-5 sm:px-10 flex justify-center items-center flex-wrap gap-5">
                 {curTeam.map((member, index) => (
-                    <UserCard user={member} key={index} showDetails={showDetails} isTeamCard={true} />
+                    <UserCard user={member} key={index} showDetails={showDetails} isTeamCard={true} setModalVisible={setModalVisible} setUpdateUser={setUpdateUser} reload={dataFetcher}  />
                 ))}
             </div>
             
@@ -187,7 +192,7 @@ function App () {
 
         <div className="w-full px:5 sm:px-10">
           { teams.map((team, index) => (
-            <TeamCard team={team} key={index} id={index+1} />
+            <TeamCard team={team} key={index} id={index+1} setTeams={setTeams} />
           ))}
         </div>
 

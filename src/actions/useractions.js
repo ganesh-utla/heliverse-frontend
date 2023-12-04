@@ -1,4 +1,6 @@
-export const baseUrl = 'http://localhost:5000';
+import httpClient from "../httpClient";
+
+export const baseUrl = 'https://heliverse-backend-jixe.onrender.com';
 
 export const fetchUsers = async (skip, searchUser, selectedGenders, selectedDomains, selectedAvailability) => {
     const query = { skip: skip };
@@ -27,12 +29,45 @@ export const fetchUserCount = async (searchUser, selectedGenders, selectedDomain
 }
 
 
-export const postUser = async (body) => {
-    console.log(body);
-    // const res = await fetch(`${baseUrl}/api/users/`, {
-    //     method: "post",
-    //     headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': true},
-    //     body: body
-    // });
-    console.log("1 user added");
+export const postUser = async (body, reload) => {
+    await httpClient.post('/api/users', {
+        ...body
+    })
+    .then((res) => {
+        if (res.status===200) {
+            console.log("1 user added");
+        }
+        reload();
+    })
+    .catch(() => {
+        console.log('error in adding user');
+    });
+}
+
+export const updateUser = async (body, id, reload) => {
+    await httpClient.put(`/api/users/${id}`, {
+        ...body
+    })
+    .then((res) => {
+        if (res.status===200) {
+            console.log("1 user updated");
+        }
+        reload();
+    })
+    .catch(() => {
+        console.log('error in updating user');
+    });
+}
+
+export const deleteUser = async (id, reload) => {
+    await httpClient.delete(`/api/users/${id}`)
+    .then((res) => {
+        if (res.status===200) {
+            console.log("1 user deleted");
+        }
+        reload();
+    })
+    .catch(() => {
+        console.log('error in deleting user');
+    });
 }
